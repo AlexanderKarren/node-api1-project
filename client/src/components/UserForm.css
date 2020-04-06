@@ -1,0 +1,32 @@
+.user-form {
+    width:25%;
+}
+
+.user-form form {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    width:100%;
+}
+
+.user-form form > div {
+    margin:10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    width:100%;
+}
+
+.user-form form label {
+    width:25%;
+    font-size:1.2rem;
+}
+
+.user-form form input {
+    width:75%;
+    padding:10px;
+    border-radius:5px;
+    border:1px solid lightgray;
+    outline:none;
+    font-size:inherit;
+}
