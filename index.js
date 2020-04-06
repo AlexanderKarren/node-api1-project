@@ -34,12 +34,26 @@ server.post('/api/users', (req, res) => {
         users.push(user);
         res.status(201).json(user);
     }
-    else {
-        res.status(400).json({errorMessage: "Please provide name and bio for the user." })
-    }
+    else res.status(400).json({errorMessage: "Please provide name and bio for the user." })
 })
 
-// remove user, return removed user
+server.put('/api/users/:id', (req, res) => {
+    if (req.body.hasOwnProperty("name") && req.body.hasOwnProperty("bio")) {
+        const user = users.find(user => (req.params.id === user.id.toString()))
+        if (user) {
+            const newUser = {
+                id: Number(req.params.id),
+                ...req.body
+            }
+            users = users.map(user => (user.id.toString() === req.params.id ? newUser : user))
+            res.status(201).json(newUser);
+        }
+        else res.status(404).json({ errorMessage: `Could not find user with ID: ${req.params.id}`});
+    }
+    else res.status(400).json({errorMessage: "Please provide name and bio for the user." })
+})
+
+// remove user, return removed user. If user is not present, return 404 error.
 server.delete('/api/users/:id', (req, res) => {
     const user = users.find(user => (user.id.toString() === req.params.id))
     users = users.filter(user => (user.id.toString() !== req.params.id))
